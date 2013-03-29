@@ -26,3 +26,8 @@ Point::~Point()
         delete constraint_to_delete;
     }
 }
+
+void Point::RemoveConstraint(Constraint* constraint)
+{
+
+}

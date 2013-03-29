@@ -3,16 +3,20 @@
 
 #include <QObject>
 
+class Point;
+
 class Constraint : public QObject
 {
     Q_OBJECT
 public:
-    explicit Constraint(QObject *parent = 0);
+    explicit Constraint(Point* p1, Point* p2, qreal length, qreal tear_distance, QObject *parent = 0);
+    void Solve();
     
-signals:
-    
-public slots:
-    
+private:
+    Point* m_p1;
+    Point* m_p2;
+    qreal m_length;
+    qreal m_tearDistance;
 };
 
 #endif // CONSTRAINT_H

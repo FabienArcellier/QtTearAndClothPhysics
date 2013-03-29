@@ -12,6 +12,33 @@ public:
     explicit Point(qreal x, qreal y, QObject* parent = 0);
     ~Point();
 
+    void RemoveConstraint(Constraint*);
+
+    qreal x() const
+    {
+        return this -> m_x;
+    }
+
+    void setX(const qreal x)
+    {
+        this -> m_x = x;
+    }
+
+    qreal y() const
+    {
+        return this -> m_y;
+    }
+
+    void setY(const qreal y)
+    {
+        this -> m_y = y;
+    }
+
+    qreal mass() const
+    {
+        return this -> m_mass;
+    }
+
 private:
     qreal m_x;
     qreal m_y;
