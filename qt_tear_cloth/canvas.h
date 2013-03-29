@@ -1,20 +1,27 @@
 #ifndef CANVAS_H
 #define CANVAS_H
 
+#include <QList>
 #include <QGraphicsRectItem>
 #include "mainwindow.h"
+#include "point.h"
 
 class Canvas : public QGraphicsRectItem
 {
 public:
-    Canvas(MainWindow* parent);
+    Canvas(Mouse* m_mouse);
+    ~Canvas();
 
 protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void MousePressEvent(QGraphicsSceneMouseEvent *event);
+    void MouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    QRectF boundingRect();
+    void createPoint(int x, int y);
 
 private:
-    MainWindow* m_parent;
+    Mouse* m_mouse;
+    QList<Point*> m_points;
 };
 
 #endif // CANVAS_H

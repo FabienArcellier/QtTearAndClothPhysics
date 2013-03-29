@@ -7,6 +7,7 @@ namespace Ui {
 class MainWindow;
 }
 
+class Physics;
 class QGraphicsRectItem;
 
 typedef struct
@@ -30,10 +31,12 @@ public:
     Mouse* mouse();
 
 private slots:
-    void onMouseDown();
     
 private:
-    void initMainWindow();
+    void InitMainWindow();
+    void Init();
+    void Update();
+    void BuildCloth();
 
     Ui::MainWindow *ui;
     QGraphicsRectItem* m_canvas;
@@ -47,6 +50,7 @@ private:
     qint32 m_startY;
     qint32 m_spacing;
     qint32 m_tearDistance;
+    Physics* m_physics;
 };
 
 #endif // MAINWINDOW_H

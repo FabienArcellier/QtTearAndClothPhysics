@@ -1,27 +1,54 @@
 #include "canvas.h"
 
 #include <QGraphicsSceneMouseEvent>
+#include <QPainter>
 
-Canvas::Canvas(MainWindow *parent)
+Canvas::Canvas(Mouse *mouse)
 {
-    this -> m_parent = parent;
+    this -> m_mouse = mouse;
 }
 
-void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *event)
+Canvas::~Canvas()
+{
+    for(int i = 0; i < this -> m_points.count(); i++)
+    {
+        Point* point_to_delete = this -> m_points[0];
+        this -> m_points.removeAt(0);
+        delete point_to_delete;
+    }
+}
+
+void Canvas::MousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 
-    mouse -> button = (qint32) event -> button();
-    mouse -> px = mouse -> x;
-    mouse -> py = mouse -> y;
-    mouse -> x = event -> lastPos().x();
-    mouse -> y = event -> lastPos().y();
-    mouse -> down = true;
+    this -> m_mouse -> button = (qint32) event -> button();
+    this -> m_mouse -> px = this -> m_mouse -> x;
+    this -> m_mouse -> py = this -> m_mouse -> y;
+    this -> m_mouse -> x = event -> lastPos().x();
+    this -> m_mouse -> y = event -> lastPos().y();
+    this -> m_mouse -> down = true;
     event -> accept();
 }
 
-void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void Canvas::MouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    Mouse* mouse = this -> m_parent -> mouse();
-    mouse -> down = false;
+    this -> m_mouse -> down = false;
     event -> accept();
 }
+
+void Canvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    painter -> setPen(Qt::black);
+    painter -> drawRect(this -> rect());
+}
+
+QRectF Canvas::boundingRect()
+{
+    return rect();
+}
+
+void Canvas::createPoint(int x, int y)
+{
+
+}
+

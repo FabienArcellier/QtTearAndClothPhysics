@@ -12,9 +12,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    canvas.cpp
+    canvas.cpp \
+    physics.cpp \
+    point.cpp \
+    constraint.cpp
 
 HEADERS  += mainwindow.h \
-    canvas.h
+    canvas.h \
+    physics.h \
+    point.h \
+    constraint.h
 
 FORMS    += mainwindow.ui
