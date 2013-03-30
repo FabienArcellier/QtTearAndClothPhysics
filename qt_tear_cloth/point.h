@@ -12,7 +12,9 @@ public:
     explicit Point(qreal x, qreal y, QObject* parent = 0);
     ~Point();
 
+    void Attach(Point*, qreal spacing, qreal tear_length);
     void RemoveConstraint(Constraint*);
+    void Pin(qreal p_x, qreal p_y);
 
     qreal x() const
     {
@@ -47,7 +49,7 @@ private:
     qreal m_ax;
     qreal m_ay;
     qreal m_mass;
-    QList<Constraint* > m_contraints;
+    QList<Constraint* > m_constraints;
     bool m_pinned;
     qreal m_pinX;
     qreal m_pinY;

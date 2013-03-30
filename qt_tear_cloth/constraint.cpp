@@ -45,3 +45,8 @@ void Constraint::Solve()
     qreal y2_new = this -> m_p2 -> y() - diff_y * scalar_2 * diff_distance;
     this -> m_p2 -> setY(y2_new);
 }
+
+void Constraint::Draw()
+{
+
+}

@@ -19,15 +19,29 @@ Point::Point(qreal x, qreal y, QObject *parent) :
 
 Point::~Point()
 {
-    for(int i = 0; i < this -> m_contraints.count(); i++)
+    for(int i = 0; i < this -> m_constraints.count(); i++)
     {
-        Constraint* constraint_to_delete = this -> m_contraints.first();
-        this -> m_contraints.removeAt(0);
+        Constraint* constraint_to_delete = this -> m_constraints.first();
+        this -> m_constraints.removeAt(0);
         delete constraint_to_delete;
     }
 }
 
+void Point::Attach(Point *p2, qreal spacing, qreal tear_length)
+{
+    Constraint* constraint = new Constraint(this, p2, spacing, tear_length);
+    this -> m_constraints.append(constraint);
+}
+
 void Point::RemoveConstraint(Constraint* constraint)
 {
+    this -> m_constraints.removeOne(constraint);
+    delete constraint;
+}
 
+void Point::Pin(qreal px, qreal py)
+{
+    this -> m_pinned = true;
+    this -> m_px = px;
+    this -> m_py = py;
 }
