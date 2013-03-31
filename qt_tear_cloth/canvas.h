@@ -5,15 +5,16 @@
 #include <QGraphicsRectItem>
 #include "point.h"
 
-typedef struct
+class Mouse
 {
+public:
     bool down;
-    qint32 button;
+    Qt::MouseButton button;
     qint32 x;
     qint32 y;
     qint32 px;
     qint32 py;
-} Mouse;
+};
 
 class Physics;
 

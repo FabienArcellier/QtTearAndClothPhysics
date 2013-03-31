@@ -17,7 +17,7 @@ Canvas::Canvas() :
     m_physics(NULL)
 {
     this -> m_mouse.down = false;
-    this -> m_mouse.button = 1;
+    this -> m_mouse.button = Qt::LeftButton;
     this -> m_mouse.x = 0;
     this -> m_mouse.y = 0;
     this -> m_mouse.px = 0;
@@ -70,7 +70,7 @@ void Canvas::BuildCloth()
 
 void Canvas::Update()
 {
-    //this -> m_physics -> Update();
+    this -> m_physics -> Update();
     this -> update(this -> rect());
 }
 
@@ -82,7 +82,6 @@ void Canvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     {
         this -> m_points.at(i) -> Draw(painter);
     }
-
 }
 
 QRectF Canvas::boundingRect()
@@ -92,13 +91,16 @@ QRectF Canvas::boundingRect()
 
 Point* Canvas::CreatePoint(qreal x, qreal y)
 {
-    return new Point(x, y);
+    Point* point = new Point(x, y);
+    point -> SetMouse(&(this -> m_mouse));
+    point -> SetMouseInfluence(this -> m_mouseInfluence);
+    return point;
 }
 
 void Canvas::MousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 
-    this -> m_mouse.button = (qint32) event -> button();
+    this -> m_mouse.button = event -> button();
     this -> m_mouse.px = this -> m_mouse.x;
     this -> m_mouse.py = this -> m_mouse.y;
     this -> m_mouse.x = event -> lastPos().x();

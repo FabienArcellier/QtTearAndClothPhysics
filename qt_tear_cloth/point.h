@@ -5,6 +5,7 @@
 
 class QPainter;
 class Constraint;
+class Mouse;
 
 class Point : public QObject
 {
@@ -20,6 +21,8 @@ public:
     void UpdateMouse();
     void Update(qreal delta);
     void Draw(QPainter* painter);
+    void SetMouse(Mouse* mouse);
+    void SetMouseInfluence(qint32 mouse_influence);
 
     qreal x() const
     {
@@ -58,6 +61,8 @@ private:
     bool m_pinned;
     qreal m_pinX;
     qreal m_pinY;
+    Mouse* m_mouse;
+    qint32 m_mouseInfluence;
 };
 
 #endif // POINT_H
