@@ -14,7 +14,7 @@ Canvas::Canvas() :
     m_clothWidth(100),
     m_startY(20),
     m_spacing(7),
-    m_tearDistance(20),
+    m_tearDistance(100),
     m_physics(NULL)
 {
     this -> m_mouse.down = false;
@@ -42,12 +42,12 @@ Canvas::~Canvas()
 void Canvas::BuildCloth()
 {
     QRectF rect = this -> rect();
-    qreal start_x = rect.width() / 2 - this -> m_clothWidth  * this -> m_spacing / 2;
+    qreal start_x = 5;
     for(int y = 0; y < this -> m_clothHeight; y++)
     {
         for(int x = 0; x < this -> m_clothWidth; x++)
         {
-            Point* point = this -> CreatePoint(start_x + x * this -> m_spacing,  this -> m_startY + y * this -> m_spacing);
+            Point* point = this -> CreatePoint(start_x + x * this -> m_spacing,  y);
 
             if (x != 0)
             {
@@ -74,6 +74,18 @@ void Canvas::Update()
 {
     this -> m_physics -> Update();
     this -> update(this -> rect());
+}
+
+void Canvas::ResetSimulation()
+{
+    foreach(Point* point, this -> m_points)
+    {
+        this -> m_points.removeFirst();
+        delete point;
+    }
+
+    this -> BuildCloth();
+    this -> Update();
 }
 
 void Canvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

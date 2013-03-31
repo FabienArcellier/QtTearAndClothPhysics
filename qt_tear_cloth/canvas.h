@@ -26,6 +26,7 @@ public:
     Point *CreatePoint(qreal x, qreal y);
     void BuildCloth();
     void Update();
+    void ResetSimulation();
 
 protected:
     void MouseReleaseEvent(QGraphicsSceneMouseEvent *event);

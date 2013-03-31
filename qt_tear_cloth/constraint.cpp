@@ -1,5 +1,6 @@
 #include "constraint.h"
 
+#include <QDebug>
 #include <qmath.h>
 #include <QPainter>
 
@@ -26,6 +27,8 @@ void Constraint::Solve()
     qreal distance = qSqrt(diff_x * diff_x + diff_y * diff_y);
     qreal diff_distance = (this -> m_length - distance)/distance;
 
+
+    // Il ne devrait jamais y avoir rupture (800 - 30)/(30)
     if (diff_distance > this -> m_tearDistance)
     {
         this -> m_p1 -> RemoveConstraint(this);

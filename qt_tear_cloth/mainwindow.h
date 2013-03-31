@@ -22,6 +22,7 @@ public:
 
 private slots:
     void Update();
+    void ResetSimulation();
     
 private:
     void InitMainWindow();

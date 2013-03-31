@@ -15,7 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this -> InitMainWindow();
-
     this -> Init();
 }
 
@@ -39,6 +38,8 @@ void MainWindow::InitMainWindow()
  */
 void MainWindow::Init()
 {
+    this -> connect(this -> ui -> ResetSimulation, SIGNAL(clicked()), this, SLOT(ResetSimulation()));
+
     QTimer *timer = new QTimer();
     timer->setInterval(1000/60);
     timer -> connect(timer, SIGNAL(timeout()), this, SLOT(Update()));
@@ -53,10 +54,8 @@ void MainWindow::Update()
     this -> m_canvas -> Update();
 }
 
-/*!
- *
- */
-void MainWindow::BuildCloth()
+void MainWindow::ResetSimulation()
 {
-
+    this -> m_canvas -> ResetSimulation();
 }
+

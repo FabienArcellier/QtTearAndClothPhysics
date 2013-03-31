@@ -104,10 +104,10 @@ void Point::Update(qreal delta)
     qreal vx = this -> m_x - this -> m_px;
     qreal vy = this -> m_y - this -> m_py;
 
+    // Verlet integration equation
     delta *= delta;
-
-    qreal nx = this -> m_x + 0.99 * vx + 0.5 * this -> m_ax * delta;
-    qreal ny = this -> m_y + 0.99 * vy + 0.5 * this -> m_ay * delta;
+    qreal nx = this -> m_x + vx + this -> m_ax * delta;
+    qreal ny = this -> m_y + vy + this -> m_ay * delta;
 
     this -> m_px = this -> m_x;
     this -> m_py = this -> m_y;
