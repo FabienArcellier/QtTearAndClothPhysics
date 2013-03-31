@@ -93,7 +93,6 @@ void Point::UpdateMouse()
             // Why 1.8 ?
             this -> m_px = this -> m_x - (this -> m_mouse -> x - this -> m_mouse->px) * 1.8;
             this -> m_py = this -> m_y - (this -> m_mouse -> y - this -> m_mouse->py) * 1.8;
-            qDebug() << "Point change catched x:" << this -> m_px << " y:" <<  this -> m_py ;
         }
     }
 }

@@ -10,10 +10,10 @@ class Mouse
 public:
     bool down;
     Qt::MouseButton button;
-    qint32 x;
-    qint32 y;
-    qint32 px;
-    qint32 py;
+    qreal x;
+    qreal y;
+    qreal px;
+    qreal py;
 };
 
 class Physics;
@@ -28,8 +28,10 @@ public:
     void Update();
 
 protected:
-    void MousePressEvent(QGraphicsSceneMouseEvent *event);
     void MouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void MousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QRectF boundingRect();
 

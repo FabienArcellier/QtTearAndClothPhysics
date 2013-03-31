@@ -1,19 +1,20 @@
 #include "canvas.h"
 
+#include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include "physics.h"
 
 Canvas::Canvas() :
     m_physicsAccuracy(3),
-    m_mouseInfluence(5),
+    m_mouseInfluence(20),
     m_mouseCut(6),
     m_gravity(900),
-    m_clothHeight(20),
-    m_clothWidth(20),
+    m_clothHeight(50),
+    m_clothWidth(100),
     m_startY(20),
     m_spacing(7),
-    m_tearDistance(10),
+    m_tearDistance(20),
     m_physics(NULL)
 {
     this -> m_mouse.down = false;
@@ -23,6 +24,7 @@ Canvas::Canvas() :
     this -> m_mouse.px = 0;
     this -> m_mouse.py = 0;
 
+    this -> setAcceptHoverEvents(true);
     this -> setRect(0, 0, (this -> m_clothWidth * 2) * this -> m_spacing, (this -> m_clothHeight * 2) * this -> m_spacing);
     this -> Init();
 }
@@ -108,6 +110,28 @@ void Canvas::MousePressEvent(QGraphicsSceneMouseEvent *event)
     this -> m_mouse.y = event -> lastPos().y();
     this -> m_mouse.down = true;
     event -> accept();
+}
+
+void Canvas::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    this -> m_mouse.px = this -> m_mouse.x;
+    this -> m_mouse.py = this -> m_mouse.y;
+    this -> m_mouse.x = event -> lastPos().x();
+    this -> m_mouse.y = event -> lastPos().y();
+    event -> accept();
+}
+
+void Canvas::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
+{
+    if (event -> lastPos().x() != this -> m_mouse.x &&
+            event -> lastPos().y() != this -> m_mouse.y)
+    {
+        this -> m_mouse.px = this -> m_mouse.x;
+        this -> m_mouse.py = this -> m_mouse.y;
+        this -> m_mouse.x = event -> lastPos().x();
+        this -> m_mouse.y = event -> lastPos().y();
+        event -> accept();
+    }
 }
 
 void Canvas::MouseReleaseEvent(QGraphicsSceneMouseEvent *event)
