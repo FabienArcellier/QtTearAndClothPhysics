@@ -45,3 +45,18 @@ void Point::Pin(qreal px, qreal py)
     this -> m_px = px;
     this -> m_py = py;
 }
+
+void Point::SolveConstraints()
+{
+
+}
+
+void Point::UpdateMouse()
+{
+
+}
+
+void Point::Update(qreal delta)
+{
+
+}

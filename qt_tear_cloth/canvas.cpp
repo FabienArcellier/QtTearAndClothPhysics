@@ -2,6 +2,7 @@
 
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
+#include "physics.h"
 
 Canvas::Canvas() :
     m_physicsAccuracy(3),
@@ -12,7 +13,8 @@ Canvas::Canvas() :
     m_clothWidth(50),
     m_startY(20),
     m_spacing(7),
-    m_tearDistance(60)
+    m_tearDistance(60),
+    m_physics(NULL)
 {
     this -> m_mouse.down = false;
     this -> m_mouse.button = 1;
@@ -98,3 +100,17 @@ void Canvas::BuildCloth()
     }
 }
 
+void Canvas::Update()
+{
+
+}
+
+
+void Canvas::Init()
+{
+    this -> m_physics = new Physics(this -> m_physicsAccuracy);
+    this -> m_physics -> SetPoints(&(this -> m_points));
+
+    this -> BuildCloth();
+    this -> Update();
+}

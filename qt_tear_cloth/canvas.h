@@ -3,7 +3,6 @@
 
 #include <QList>
 #include <QGraphicsRectItem>
-#include "mainwindow.h"
 #include "point.h"
 
 typedef struct
@@ -16,6 +15,7 @@ typedef struct
     qint32 py;
 } Mouse;
 
+class Physics;
 
 class Canvas : public QGraphicsRectItem
 {
@@ -24,6 +24,7 @@ public:
     ~Canvas();
     Point *CreatePoint(qreal x, qreal y);
     void BuildCloth();
+    void Update();
 
 protected:
     void MousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -33,6 +34,7 @@ protected:
 
 
 private:
+    void Init();
     QList<Point*> m_points;
     Mouse m_mouse;
     qint32 m_physicsAccuracy;

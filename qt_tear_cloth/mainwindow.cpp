@@ -38,10 +38,6 @@ void MainWindow::InitMainWindow()
  */
 void MainWindow::Init()
 {
-    //this -> m_physics = new Physics;
-
-    this -> BuildCloth();
-    this -> Update();
 }
 
 /*!

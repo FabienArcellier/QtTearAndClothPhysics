@@ -15,6 +15,9 @@ public:
     void Attach(Point*, qreal spacing, qreal tear_length);
     void RemoveConstraint(Constraint*);
     void Pin(qreal p_x, qreal p_y);
+    void SolveConstraints();
+    void UpdateMouse();
+    void Update(qreal delta);
 
     qreal x() const
     {
