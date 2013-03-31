@@ -22,7 +22,7 @@ Constraint::Constraint(Point *p1, Point *p2, qreal length, qreal tear_distance, 
 void Constraint::Solve()
 {
     qreal diff_x = this -> m_p1 -> x() - this -> m_p2 -> x();
-    qreal diff_y = this -> m_p1 -> x() - this -> m_p2 -> y();
+    qreal diff_y = this -> m_p1 -> y() - this -> m_p2 -> y();
     qreal distance = qSqrt(diff_x * diff_x + diff_y * diff_y);
     qreal diff_distance = (this -> m_length - distance)/distance;
 

@@ -51,13 +51,28 @@ void Point::RemoveConstraint(Constraint* constraint)
 void Point::Pin(qreal px, qreal py)
 {
     this -> m_pinned = true;
-    this -> m_px = px;
-    this -> m_py = py;
+    this -> m_pinX = px;
+    this -> m_pinY = py;
 }
 
 void Point::SolveConstraints()
 {
+    int i = this -> m_constraints.count();
+    while(i--)
+    {
+        this -> m_constraints.at(i) -> Solve();
+    }
 
+    if (this -> m_y < 1 )
+    {
+        this -> m_y = 2 * 1 - this -> m_y;
+    }
+
+    if (this -> m_pinned == true)
+    {
+        this -> m_x = this -> m_pinX;
+        this -> m_y = this -> m_pinY;
+    }
 }
 
 void Point::UpdateMouse()
@@ -85,7 +100,23 @@ void Point::UpdateMouse()
 
 void Point::Update(qreal delta)
 {
+    this -> AddForce(0, this -> m_gravity * this -> m_mass);
 
+    qreal vx = this -> m_x - this -> m_px;
+    qreal vy = this -> m_y - this -> m_py;
+
+    delta *= delta;
+
+    qreal nx = this -> m_x + 0.99 * vx + 0.5 * this -> m_ax * delta;
+    qreal ny = this -> m_y + 0.99 * vy + 0.5 * this -> m_ay * delta;
+
+    this -> m_px = this -> m_x;
+    this -> m_py = this -> m_y;
+    this -> m_x = nx;
+    this -> m_y = ny;
+
+    this -> m_ax = 0;
+    this -> m_ay = 0;
 }
 
 void Point::Draw(QPainter* painter)
@@ -109,4 +140,15 @@ void Point::SetMouse(Mouse* mouse)
 void Point::SetMouseInfluence(qint32 mouse_influence)
 {
     this -> m_mouseInfluence = mouse_influence;
+}
+
+void Point::SetGravity(qreal gravity)
+{
+    this -> m_gravity = gravity;
+}
+
+void Point::AddForce(qreal fX, qreal fY)
+{
+    this -> m_ax = fX / this -> m_mass;
+    this -> m_ay = fY / this -> m_mass;
 }

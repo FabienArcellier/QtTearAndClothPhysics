@@ -6,14 +6,14 @@
 
 Canvas::Canvas() :
     m_physicsAccuracy(3),
-    m_mouseInfluence(20),
+    m_mouseInfluence(5),
     m_mouseCut(6),
     m_gravity(900),
-    m_clothHeight(30),
-    m_clothWidth(50),
+    m_clothHeight(20),
+    m_clothWidth(20),
     m_startY(20),
     m_spacing(7),
-    m_tearDistance(60),
+    m_tearDistance(10),
     m_physics(NULL)
 {
     this -> m_mouse.down = false;
@@ -23,7 +23,7 @@ Canvas::Canvas() :
     this -> m_mouse.px = 0;
     this -> m_mouse.py = 0;
 
-    this -> setRect(0, 0, this -> m_clothWidth * this -> m_spacing, this -> m_clothHeight * this -> m_spacing);
+    this -> setRect(0, 0, (this -> m_clothWidth * 2) * this -> m_spacing, (this -> m_clothHeight * 2) * this -> m_spacing);
     this -> Init();
 }
 
@@ -76,7 +76,7 @@ void Canvas::Update()
 
 void Canvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QColor strokeStyle(222, 222, 222);
+    QColor strokeStyle(0, 0, 0);
     painter -> setPen(strokeStyle);
     for(int i = 0; i < this -> m_points.count(); i++)
     {
@@ -94,6 +94,7 @@ Point* Canvas::CreatePoint(qreal x, qreal y)
     Point* point = new Point(x, y);
     point -> SetMouse(&(this -> m_mouse));
     point -> SetMouseInfluence(this -> m_mouseInfluence);
+    point -> SetGravity(this -> m_gravity);
     return point;
 }
 

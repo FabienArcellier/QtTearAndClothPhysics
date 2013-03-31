@@ -23,6 +23,8 @@ public:
     void Draw(QPainter* painter);
     void SetMouse(Mouse* mouse);
     void SetMouseInfluence(qint32 mouse_influence);
+    void SetGravity(qreal);
+    void AddForce(qreal fX, qreal fY);
 
     qreal x() const
     {
@@ -63,6 +65,7 @@ private:
     qreal m_pinY;
     Mouse* m_mouse;
     qint32 m_mouseInfluence;
+    qreal m_gravity;
 };
 
 #endif // POINT_H
