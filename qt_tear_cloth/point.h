@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+class QPainter;
 class Constraint;
 
 class Point : public QObject
@@ -18,6 +19,7 @@ public:
     void SolveConstraints();
     void UpdateMouse();
     void Update(qreal delta);
+    void Draw(QPainter* painter);
 
     qreal x() const
     {

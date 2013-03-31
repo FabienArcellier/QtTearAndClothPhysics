@@ -4,6 +4,7 @@
 #include <QObject>
 
 class Point;
+class QPainter;
 
 class Constraint : public QObject
 {
@@ -11,7 +12,7 @@ class Constraint : public QObject
 public:
     explicit Constraint(Point* p1, Point* p2, qreal length, qreal tear_distance, QObject *parent = 0);
     void Solve();
-    void Draw();
+    void Draw(QPainter*);
     
 private:
     Point* m_p1;

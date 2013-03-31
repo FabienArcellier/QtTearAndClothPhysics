@@ -21,11 +21,11 @@ public:
 
 
 private slots:
+    void Update();
     
 private:
     void InitMainWindow();
     void Init();
-    void Update();
     void BuildCloth();
 
     Ui::MainWindow *ui;

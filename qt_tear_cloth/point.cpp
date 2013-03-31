@@ -1,5 +1,6 @@
 #include "point.h"
 
+#include <QPainter>
 #include "constraint.h"
 
 Point::Point(qreal x, qreal y, QObject *parent) :
@@ -59,4 +60,17 @@ void Point::UpdateMouse()
 void Point::Update(qreal delta)
 {
 
+}
+
+void Point::Draw(QPainter* painter)
+{
+    if (this -> m_constraints.count() == 0)
+    {
+        return;
+    }
+
+    foreach(Constraint* constraint, this -> m_constraints)
+    {
+        constraint -> Draw(painter);
+    }
 }

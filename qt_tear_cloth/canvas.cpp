@@ -24,6 +24,7 @@ Canvas::Canvas() :
     this -> m_mouse.py = 0;
 
     this -> setRect(0, 0, this -> m_clothWidth * this -> m_spacing, this -> m_clothHeight * this -> m_spacing);
+    this -> Init();
 }
 
 Canvas::~Canvas()
@@ -34,40 +35,6 @@ Canvas::~Canvas()
         this -> m_points.removeAt(0);
         delete point_to_delete;
     }
-}
-
-void Canvas::MousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-
-    this -> m_mouse.button = (qint32) event -> button();
-    this -> m_mouse.px = this -> m_mouse.x;
-    this -> m_mouse.py = this -> m_mouse.y;
-    this -> m_mouse.x = event -> lastPos().x();
-    this -> m_mouse.y = event -> lastPos().y();
-    this -> m_mouse.down = true;
-    event -> accept();
-}
-
-void Canvas::MouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    this -> m_mouse.down = false;
-    event -> accept();
-}
-
-void Canvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    painter -> setPen(Qt::black);
-    painter -> drawRect(this -> rect());
-}
-
-QRectF Canvas::boundingRect()
-{
-    return this -> rect();
-}
-
-Point* Canvas::CreatePoint(qreal x, qreal y)
-{
-    return new Point(x, y);
 }
 
 void Canvas::BuildCloth()
@@ -87,7 +54,7 @@ void Canvas::BuildCloth()
 
             if (y != 0)
             {
-                point->Attach(m_points.at((y - 1) * (this -> m_clothWidth  + 1) + x), this -> m_spacing, this -> m_tearDistance);
+                point->Attach(m_points.at((y - 1) * (this -> m_clothWidth) + x), this -> m_spacing, this -> m_tearDistance);
             }
 
             if (y == 0)
@@ -100,11 +67,51 @@ void Canvas::BuildCloth()
     }
 }
 
+
 void Canvas::Update()
 {
+    //this -> m_physics -> Update();
+    this -> update(this -> rect());
+}
+
+void Canvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    QColor strokeStyle(222, 222, 222);
+    painter -> setPen(strokeStyle);
+    for(int i = 0; i < this -> m_points.count(); i++)
+    {
+        this -> m_points.at(i) -> Draw(painter);
+    }
 
 }
 
+QRectF Canvas::boundingRect()
+{
+    return this -> rect();
+}
+
+Point* Canvas::CreatePoint(qreal x, qreal y)
+{
+    return new Point(x, y);
+}
+
+void Canvas::MousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+
+    this -> m_mouse.button = (qint32) event -> button();
+    this -> m_mouse.px = this -> m_mouse.x;
+    this -> m_mouse.py = this -> m_mouse.y;
+    this -> m_mouse.x = event -> lastPos().x();
+    this -> m_mouse.y = event -> lastPos().y();
+    this -> m_mouse.down = true;
+    event -> accept();
+}
+
+void Canvas::MouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    this -> m_mouse.down = false;
+    event -> accept();
+}
 
 void Canvas::Init()
 {

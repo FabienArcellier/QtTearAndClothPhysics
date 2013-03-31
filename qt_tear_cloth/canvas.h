@@ -32,7 +32,6 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     QRectF boundingRect();
 
-
 private:
     void Init();
     QList<Point*> m_points;

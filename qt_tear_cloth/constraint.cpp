@@ -1,6 +1,7 @@
 #include "constraint.h"
 
 #include <qmath.h>
+#include <QPainter>
 
 #include "point.h"
 
@@ -46,7 +47,9 @@ void Constraint::Solve()
     this -> m_p2 -> setY(y2_new);
 }
 
-void Constraint::Draw()
+void Constraint::Draw(QPainter *painter)
 {
-
+    QPointF point1(this -> m_p1 -> x(), this -> m_p1 -> y());
+    QPointF point2(this -> m_p2 -> x(), this -> m_p2 -> y());
+    painter -> drawLine(point1, point2);
 }

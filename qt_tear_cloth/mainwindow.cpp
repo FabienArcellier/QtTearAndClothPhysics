@@ -3,6 +3,7 @@
 
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
+#include <QTimer>
 
 #include "canvas.h"
 #include "physics.h"
@@ -38,6 +39,10 @@ void MainWindow::InitMainWindow()
  */
 void MainWindow::Init()
 {
+    QTimer *timer = new QTimer();
+    timer->setInterval(1000/60);
+    timer -> connect(timer, SIGNAL(timeout()), this, SLOT(Update()));
+    timer -> start();
 }
 
 /*!
@@ -45,7 +50,7 @@ void MainWindow::Init()
  */
 void MainWindow::Update()
 {
-
+    this -> m_canvas -> Update();
 }
 
 /*!
