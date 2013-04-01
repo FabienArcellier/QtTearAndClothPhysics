@@ -5,6 +5,7 @@
 
 class QPainter;
 class Constraint;
+class Keyboard;
 class Mouse;
 
 class Point : public QObject
@@ -19,9 +20,11 @@ public:
     void RemoveConstraint(Constraint*);
     void Pin(qreal p_x, qreal p_y);
     void SolveConstraints();
+    void UpdateKeyboard();
     void UpdateMouse();
     void Update(qreal delta);
     void Draw(QPainter* painter);
+    void SetKeyboard(Keyboard* keyboard);
     void SetMouse(Mouse* mouse);
     void SetMouseInfluence(qint32 mouse_influence);
     void SetGravity(qreal);
@@ -69,6 +72,7 @@ private:
     bool m_pinned;
     qreal m_pinX;
     qreal m_pinY;
+    Keyboard* m_keyboard;
     Mouse* m_mouse;
     qint32 m_mouseInfluence;
     qreal m_gravity;

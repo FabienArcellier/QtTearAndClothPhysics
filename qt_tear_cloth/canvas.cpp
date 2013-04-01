@@ -24,6 +24,11 @@ Canvas::Canvas() :
     this -> m_mouse.px = 0;
     this -> m_mouse.py = 0;
 
+    this -> m_keyboard.keydown_down = false;
+    this -> m_keyboard.keyleft_down = false;
+    this -> m_keyboard.keyright_down = false;
+    this -> m_keyboard.keyup_down = false;
+
     this -> setAcceptHoverEvents(true);
     this -> setRect(0, 0, (this -> m_clothWidth * 2) * this -> m_spacing, (this -> m_clothHeight * 2) * this -> m_spacing);
     this -> Init();
@@ -120,6 +125,26 @@ void Canvas::SetGravity(qint32 value)
     }
 }
 
+void Canvas::ActiveKeyUp(bool active)
+{
+    this -> m_keyboard.keyup_down = active;
+}
+
+void Canvas::ActiveKeyDown(bool active)
+{
+    this -> m_keyboard.keydown_down = active;
+}
+
+void Canvas::ActiveKeyLeft(bool active)
+{
+    this -> m_keyboard.keyleft_down = active;
+}
+
+void Canvas::ActiveKeyRight(bool active)
+{
+    this -> m_keyboard.keyright_down = active;
+}
+
 void Canvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QColor strokeStyle(0, 0, 0);
@@ -142,6 +167,7 @@ Point* Canvas::CreatePoint(qreal x, qreal y)
     point -> SetMouseInfluence(this -> m_mouseInfluence);
     point -> SetMouseCut(this -> m_mouseCut);
     point -> SetGravity(this -> m_gravity);
+    point -> SetKeyboard(&(this -> m_keyboard));
     return point;
 }
 

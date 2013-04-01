@@ -47,6 +47,7 @@ void Physics::Update()
     i = this -> m_points -> count();
     while(i--)
     {
+        this -> m_points -> at(i) -> UpdateKeyboard();
         this -> m_points -> at(i) -> UpdateMouse();
         this -> m_points -> at(i) -> Update(this -> m_deltaSec);
     }

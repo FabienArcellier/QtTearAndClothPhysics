@@ -5,6 +5,15 @@
 #include <QGraphicsRectItem>
 #include "point.h"
 
+class Keyboard
+{
+public:
+    bool keyright_down;
+    bool keyleft_down;
+    bool keydown_down;
+    bool keyup_down;
+};
+
 class Mouse
 {
 public:
@@ -33,6 +42,11 @@ public:
     void SetMouseCut(qint32 value);
     void SetGravity(qint32 value);
 
+    void ActiveKeyUp(bool active);
+    void ActiveKeyDown(bool active);
+    void ActiveKeyLeft(bool active);
+    void ActiveKeyRight(bool active);
+
 protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
@@ -45,6 +59,7 @@ private:
     void Init();
     QList<Point*> m_points;
     Mouse m_mouse;
+    Keyboard m_keyboard;
     qint32 m_physicsAccuracy;
     qint32 m_mouseInfluence;
     qint32 m_mouseCut;

@@ -21,6 +21,7 @@ Point::Point(qreal x, qreal y, QObject *parent) :
     m_pinned(false),
     m_pinX(0),
     m_pinY(0),
+    m_keyboard(NULL),
     m_mouse(NULL),
     m_mouseInfluence(0),
     m_mouseCut(0)
@@ -87,6 +88,29 @@ void Point::SolveConstraints()
     }
 }
 
+void Point::UpdateKeyboard()
+{
+    if (this -> m_keyboard->keyup_down)
+    {
+        this -> AddForce(0, -2000);
+    }
+
+    if (this -> m_keyboard-> keydown_down)
+    {
+        this -> AddForce(0, 2000);
+    }
+
+    if (this -> m_keyboard -> keyright_down)
+    {
+        this -> AddForce(2000, 0);
+    }
+
+    if (this -> m_keyboard -> keyleft_down)
+    {
+        this -> AddForce(-2000, 0);
+    }
+}
+
 void Point::UpdateMouse()
 {
     Q_CHECK_PTR(this -> m_mouse);
@@ -145,6 +169,11 @@ void Point::Draw(QPainter* painter)
     {
         constraint -> Draw(painter);
     }
+}
+
+void Point::SetKeyboard(Keyboard* keyboard)
+{
+    this -> m_keyboard = keyboard;
 }
 
 void Point::SetMouse(Mouse* mouse)

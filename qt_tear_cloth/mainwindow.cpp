@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QDebug>
+#include <QKeyEvent>
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QTimer>
@@ -14,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this -> setFocusPolicy(Qt::StrongFocus);
     this -> InitMainWindow();
     this -> Init();
 }
@@ -24,10 +27,55 @@ MainWindow::~MainWindow()
     delete this -> m_canvas;
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    switch(event -> key())
+    {
+        case Qt::Key_Q:
+            this -> m_canvas -> ActiveKeyLeft(true);
+        break;
+        case Qt::Key_D:
+            this -> m_canvas -> ActiveKeyRight(true);
+            qDebug() << "Key D pushed";
+        break;
+        case Qt::Key_Z:
+            this -> m_canvas -> ActiveKeyUp(true);
+        break;
+        case Qt::Key_S:
+            this -> m_canvas -> ActiveKeyDown(true);
+        break;
+    }
+
+    event ->accept();
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    switch(event -> key())
+    {
+        case Qt::Key_Q:
+            this -> m_canvas -> ActiveKeyLeft(false);
+        break;
+        case Qt::Key_D:
+            this -> m_canvas -> ActiveKeyRight(false);
+            qDebug() << "Key D released";
+        break;
+        case Qt::Key_Z:
+            this -> m_canvas -> ActiveKeyUp(false);
+        break;
+        case Qt::Key_S:
+            this -> m_canvas -> ActiveKeyDown(false);
+        break;
+    }
+
+    event ->accept();
+}
+
 void MainWindow::InitMainWindow()
 {
     QGraphicsScene* scene = new QGraphicsScene(this);
     this -> ui -> canvasGraphicsView->setScene(scene);
+    this -> ui -> canvasGraphicsView -> setFocusPolicy(Qt::ClickFocus);
 
     this -> m_canvas = new Canvas;
     scene -> addItem(this -> m_canvas);
