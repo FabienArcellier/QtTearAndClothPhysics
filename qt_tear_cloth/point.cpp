@@ -102,9 +102,8 @@ void Point::UpdateMouse()
     {
         if (distance < this -> m_mouseInfluence)
         {
-            // Why 1.8 ?
-            this -> m_px = this -> m_x - (this -> m_mouse -> x - this -> m_mouse->px) * 1.8;
-            this -> m_py = this -> m_y - (this -> m_mouse -> y - this -> m_mouse->py) * 1.8;
+            this -> AddForce((this -> m_mouse -> x - this -> m_mouse -> px) * 1000,
+                             (this -> m_mouse -> y - this -> m_mouse -> py) * 1000);
         }
     }
     else if (distance < this -> m_mouseCut)
@@ -165,6 +164,6 @@ void Point::SetGravity(qreal gravity)
 
 void Point::AddForce(qreal fX, qreal fY)
 {
-    this -> m_ax = fX / this -> m_mass;
-    this -> m_ay = fY / this -> m_mass;
+    this -> m_ax += fX / this -> m_mass;
+    this -> m_ay += fY / this -> m_mass;
 }
