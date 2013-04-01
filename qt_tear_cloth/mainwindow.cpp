@@ -36,7 +36,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         break;
         case Qt::Key_D:
             this -> m_canvas -> ActiveKeyRight(true);
-            qDebug() << "Key D pushed";
         break;
         case Qt::Key_Z:
             this -> m_canvas -> ActiveKeyUp(true);
@@ -57,8 +56,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
             this -> m_canvas -> ActiveKeyLeft(false);
         break;
         case Qt::Key_D:
-            this -> m_canvas -> ActiveKeyRight(false);
-            qDebug() << "Key D released";
+            this -> m_canvas -> ActiveKeyRight(false);;
         break;
         case Qt::Key_Z:
             this -> m_canvas -> ActiveKeyUp(false);

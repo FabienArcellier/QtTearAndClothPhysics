@@ -14,7 +14,7 @@ Canvas::Canvas() :
     m_clothWidth(100),
     m_startY(20),
     m_spacing(7),
-    m_tearDistance(100),
+    m_tearDistance(30),
     m_physics(NULL)
 {
     this -> m_mouse.down = false;
