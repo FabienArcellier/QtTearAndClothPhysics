@@ -15,6 +15,7 @@ public:
     ~Point();
 
     void Attach(Point*, qreal spacing, qreal tear_length);
+    void ClearConstraint();
     void RemoveConstraint(Constraint*);
     void Pin(qreal p_x, qreal p_y);
     void SolveConstraints();
@@ -51,6 +52,11 @@ public:
         return this -> m_mass;
     }
 
+    void SetMouseCut(qint32 value)
+    {
+        this -> m_mouseCut = value;
+    }
+
 private:
     qreal m_x;
     qreal m_y;
@@ -66,6 +72,7 @@ private:
     Mouse* m_mouse;
     qint32 m_mouseInfluence;
     qreal m_gravity;
+    qint32 m_mouseCut;
 };
 
 #endif // POINT_H

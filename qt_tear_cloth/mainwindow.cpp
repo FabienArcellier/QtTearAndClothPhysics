@@ -39,6 +39,10 @@ void MainWindow::InitMainWindow()
 void MainWindow::Init()
 {
     this -> connect(this -> ui -> ResetSimulation, SIGNAL(clicked()), this, SLOT(ResetSimulation()));
+    this -> connect(this -> ui -> physicsSpinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdatePhysicsAccuracy()));
+    this -> connect(this -> ui -> mouseInfluenceSpinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdateMouseInfluence()));
+    this -> connect(this -> ui -> mouseCutSpinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdateMouseCut()));
+    this -> connect(this -> ui -> gravitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(UpdateGravity()));
 
     QTimer *timer = new QTimer();
     timer->setInterval(1000/60);
@@ -59,3 +63,23 @@ void MainWindow::ResetSimulation()
     this -> m_canvas -> ResetSimulation();
 }
 
+void MainWindow::UpdatePhysicsAccuracy()
+{
+    this -> m_canvas -> SetPhysicsAccuracy(this -> ui ->physicsSpinBox -> value());
+
+}
+
+void MainWindow::UpdateMouseInfluence()
+{
+    this -> m_canvas -> SetMouseInfluence(this -> ui -> mouseInfluenceSpinBox -> value());
+}
+
+void MainWindow::UpdateMouseCut()
+{
+    this -> m_canvas -> SetMouseCut(this -> ui -> mouseCutSpinBox -> value());
+}
+
+void MainWindow::UpdateGravity()
+{
+    this -> m_canvas -> SetGravity(this -> ui -> gravitySpinBox -> value());
+}

@@ -28,9 +28,14 @@ public:
     void Update();
     void ResetSimulation();
 
+    void SetPhysicsAccuracy(qint32 value);
+    void SetMouseInfluence(qint32 value);
+    void SetMouseCut(qint32 value);
+    void SetGravity(qint32 value);
+
 protected:
-    void MouseReleaseEvent(QGraphicsSceneMouseEvent *event);
-    void MousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

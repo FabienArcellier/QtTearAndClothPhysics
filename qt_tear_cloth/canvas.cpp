@@ -41,7 +41,6 @@ Canvas::~Canvas()
 
 void Canvas::BuildCloth()
 {
-    QRectF rect = this -> rect();
     qreal start_x = 5;
     for(int y = 0; y < this -> m_clothHeight; y++)
     {
@@ -88,6 +87,39 @@ void Canvas::ResetSimulation()
     this -> Update();
 }
 
+void Canvas::SetPhysicsAccuracy(qint32 value)
+{
+    this -> m_physicsAccuracy = value;
+    this -> m_physics -> SetPhysicsAccuracy(value);
+}
+
+void Canvas::SetMouseInfluence(qint32 value)
+{
+    this -> m_mouseInfluence = value;
+    foreach(Point* point, this -> m_points)
+    {
+        point -> SetMouseInfluence(value);
+    }
+}
+
+void Canvas::SetMouseCut(qint32 value)
+{
+    this -> m_mouseCut = value;
+    foreach(Point* point, this -> m_points)
+    {
+        point -> SetMouseCut(value);
+    }
+}
+
+void Canvas::SetGravity(qint32 value)
+{
+    this -> m_gravity = value;
+    foreach(Point* point, this -> m_points)
+    {
+        point -> SetGravity(value);
+    }
+}
+
 void Canvas::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QColor strokeStyle(0, 0, 0);
@@ -108,11 +140,12 @@ Point* Canvas::CreatePoint(qreal x, qreal y)
     Point* point = new Point(x, y);
     point -> SetMouse(&(this -> m_mouse));
     point -> SetMouseInfluence(this -> m_mouseInfluence);
+    point -> SetMouseCut(this -> m_mouseCut);
     point -> SetGravity(this -> m_gravity);
     return point;
 }
 
-void Canvas::MousePressEvent(QGraphicsSceneMouseEvent *event)
+void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
 
     this -> m_mouse.button = event -> button();
@@ -146,7 +179,7 @@ void Canvas::hoverMoveEvent(QGraphicsSceneHoverEvent *event)
     }
 }
 
-void Canvas::MouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     this -> m_mouse.down = false;
     event -> accept();

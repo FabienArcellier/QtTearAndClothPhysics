@@ -23,6 +23,10 @@ public:
 private slots:
     void Update();
     void ResetSimulation();
+    void UpdatePhysicsAccuracy();
+    void UpdateMouseInfluence();
+    void UpdateMouseCut();
+    void UpdateGravity();
     
 private:
     void InitMainWindow();

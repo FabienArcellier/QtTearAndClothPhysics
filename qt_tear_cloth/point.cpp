@@ -22,7 +22,8 @@ Point::Point(qreal x, qreal y, QObject *parent) :
     m_pinX(0),
     m_pinY(0),
     m_mouse(NULL),
-    m_mouseInfluence(0)
+    m_mouseInfluence(0),
+    m_mouseCut(0)
 {
 }
 
@@ -40,6 +41,17 @@ void Point::Attach(Point *p2, qreal spacing, qreal tear_length)
 {
     Constraint* constraint = new Constraint(this, p2, spacing, tear_length);
     this -> m_constraints.append(constraint);
+}
+
+void Point::ClearConstraint()
+{
+    qint32 i = this -> m_constraints.count();
+    while(i--)
+    {
+        Constraint* constraint = this ->m_constraints.first();
+        this -> m_constraints.removeFirst();
+        delete constraint;
+    }
 }
 
 void Point::RemoveConstraint(Constraint* constraint)
@@ -95,6 +107,11 @@ void Point::UpdateMouse()
             this -> m_py = this -> m_y - (this -> m_mouse -> y - this -> m_mouse->py) * 1.8;
         }
     }
+    else if (distance < this -> m_mouseCut)
+    {
+        this -> ClearConstraint();
+    }
+
 }
 
 void Point::Update(qreal delta)
